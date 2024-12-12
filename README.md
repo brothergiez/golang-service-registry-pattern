@@ -6,6 +6,7 @@ The Service Registry is a **Golang** and **MongoDB** based application designed 
 - **Register Service**: Register new services into the registry.
 - **List Services**: Retrieve a list of registered services.
 - **Deregister Service**: Remove a specific service from the registry.
+- **Health Check**: Check the health status of the server and database connection.
 
 ---
 
@@ -43,7 +44,7 @@ Create a `.env` file in the root directory to store application configuration:
 
 ```env
 MONGO_URI=mongodb://localhost:27017
-SERVER_PORT=3000
+SERVER_PORT=8080
 DATABASE_NAME=service_registry
 COLLECTION_NAME=services
 ```
@@ -102,13 +103,13 @@ The body should be a JSON object with the following fields:
     "id": "64a1e6d2f6c2b93e4d64f0a5",
     "name": "example-service",
     "address": "127.0.0.1",
-    "port": 3000,
+    "port": 8080,
     "registered_at": "2024-12-12T10:00:00Z"
   }
 ]
 ```
 
-### **2. Deregister Service**
+### **3. Deregister Service**
 
 - **URL**: `/services/{id}`
 - **Method**: `DELETE`
@@ -116,6 +117,29 @@ The body should be a JSON object with the following fields:
 ```json
 {
   "message": "Service deregistered successfully"
+}
+
+```
+
+### **4. Health Check**
+
+- **URL**: `/health`
+- **Method**: `GET`
+- **Response (200 OK)**
+```json
+{
+  "status": "healthy",
+  "database": "connected",
+  "server_time": "2024-12-12T14:00:00Z"
+}
+
+```
+- **Response (503 Service Unavailable)**
+```json
+{
+  "status": "unhealthy",
+  "database": "disconnected",
+  "server_time": "2024-12-12T14:00:00Z"
 }
 
 ```

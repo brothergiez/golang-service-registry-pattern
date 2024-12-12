@@ -1,14 +1,22 @@
 package registry
 
 import (
+	"context"
 	"encoding/json"
 	"net/http"
+	"time"
 
 	"github.com/gorilla/mux"
 )
 
 type Handler struct {
 	registry *ServiceRegistry
+}
+
+type HealthCheckResponse struct {
+	Status     string `json:"status"`
+	Database   string `json:"database"`
+	ServerTime string `json:"server_time"`
 }
 
 func NewHandler(registry *ServiceRegistry) *Handler {
@@ -50,4 +58,30 @@ func (h *Handler) DeregisterService(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.WriteHeader(http.StatusOK)
+}
+
+func (h *Handler) HealthCheck(w http.ResponseWriter, r *http.Request) {
+	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
+	defer cancel()
+
+	// Cek koneksi database
+	if err := h.registry.repo.PingDatabase(ctx); err != nil {
+		response := HealthCheckResponse{
+			Status:     "unhealthy",
+			Database:   "disconnected",
+			ServerTime: time.Now().Format(time.RFC3339),
+		}
+		w.WriteHeader(http.StatusServiceUnavailable)
+		json.NewEncoder(w).Encode(response)
+		return
+	}
+
+	// Jika semua sehat
+	response := HealthCheckResponse{
+		Status:     "healthy",
+		Database:   "connected",
+		ServerTime: time.Now().Format(time.RFC3339),
+	}
+	w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w).Encode(response)
 }

@@ -27,7 +27,7 @@ service-registry/
 │       └── main.go
 ├── internal/
 │   ├── config/           # Application configuration module
-│   │   ├── config.go     # Configuration 
+│   │   └── config.go     # Configuration 
 │   ├── database/         # MongoDB connection module 
 │   │   ├── database.go   # Database connection
 │   ├── registry/         # Core Service Registry module
@@ -41,16 +41,6 @@ service-registry/
 
 ```
 
-## **Configuration**
-Create a `.env` file in the root directory to store application configuration:
-
-```env
-MONGO_URI=mongodb://localhost:27017
-SERVER_PORT=3000
-DATABASE_NAME=service_registry
-COLLECTION_NAME=services
-```
-
 
 ## **Installation**
 Follow these steps to set up and run the Service Registry project:
@@ -61,6 +51,21 @@ Follow these steps to set up and run the Service Registry project:
    git clone https://github.com/brothergiez/golang-service-registry-pattern.git
    cd service-registry
    ```
+
+2. **Configuration**
+    Create a `.env` file in the root directory to store application configuration:
+
+    ```env
+    MONGO_URI=mongodb://localhost:27017
+    SERVER_PORT=3000
+    DATABASE_NAME=service_registry
+    COLLECTION_NAME=services
+    ```
+
+    or copy existing configuration:
+    ```bash
+    cp .env.example .env
+    ```
 
 
 2. **Install Dependencies Install the required Go modules:**
@@ -79,83 +84,83 @@ Follow these steps to set up and run the Service Registry project:
 - **URL**: `/services`
 - **Method**: `POST`
 - **Request Body**
-The body should be a JSON object with the following fields:
-```json
-{
-  "name": "example-service",
-  "address": "127.0.0.1",
-  "port": 3000
-}
-```
+    The body should be a JSON object with the following fields:
+    ```json
+    {
+    "name": "example-service",
+    "address": "127.0.0.1",
+    "port": 3000
+    }
+    ```
 - **Response (201 Created)**
-```json
-{
-  "message": "Service registered successfully"
-}
-```
+    ```json
+    {
+    "message": "Service registered successfully"
+    }
+    ```
 
 ### **2. List Services**
 
 - **URL**: `/services`
 - **Method**: `GET`
 - **Response (200 OK)**
-```json
-[
-  {
-    "id": "64a1e6d2f6c2b93e4d64f0a5",
-    "name": "example-service",
-    "address": "127.0.0.1",
-    "port": 3000,
-    "registered_at": "2024-12-12T10:00:00Z"
-  }
-]
-```
+    ```json
+    [
+    {
+        "id": "64a1e6d2f6c2b93e4d64f0a5",
+        "name": "example-service",
+        "address": "127.0.0.1",
+        "port": 3000,
+        "registered_at": "2024-12-12T10:00:00Z"
+    }
+    ]
+    ```
 
 ### **3. Deregister Service**
 
 - **URL**: `/services/{id}`
 - **Method**: `DELETE`
 - **Response (200 OK)**
-```json
-{
-  "message": "Service deregistered successfully"
-}
+    ```json
+    {
+    "message": "Service deregistered successfully"
+    }
 
-```
+    ```
 
 ### **4. Health Check**
 
 - **URL**: `/health`
 - **Method**: `GET`
 - **Response (200 OK)**
-```json
-{
-  "status": "healthy",
-  "database": "connected",
-  "server_time": "2024-12-12T14:00:00Z"
-}
+    ```json
+    {
+    "status": "healthy",
+    "database": "connected",
+    "server_time": "2024-12-12T14:00:00Z"
+    }
 
-```
+    ```
 - **Response (503 Service Unavailable)**
-```json
-{
-  "status": "unhealthy",
-  "database": "disconnected",
-  "server_time": "2024-12-12T14:00:00Z"
-}
+    ```json
+    {
+    "status": "unhealthy",
+    "database": "disconnected",
+    "server_time": "2024-12-12T14:00:00Z"
+    }
 
-```
+    ```
 
 ## **Installation**
 ### **1. Manual Testing: Use curl or Postman to test the endpoints. Example:**
-```bash
-curl -X GET http://localhost:3000/services
-```
+    ```bash
+    curl -X GET http://localhost:3000/services
+    ```
 
 ### **2. Automated Testing: Add unit tests for repository, service, and handler modules. Run all tests using:**
-```bash
-go test ./... -v
-```
+    ```bash
+    go test ./... -v
+    ```
 
 ## **License**
 This project is licensed under the MIT License.

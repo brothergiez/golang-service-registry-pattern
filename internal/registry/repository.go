@@ -19,9 +19,9 @@ type MongoRepository struct {
 	collection *mongo.Collection
 }
 
-func NewMongoRepository(db *mongo.Database) Repository {
+func NewMongoRepository(db *mongo.Database, collectionName string) Repository {
 	return &MongoRepository{
-		collection: db.Collection("services"),
+		collection: db.Collection(collectionName),
 	}
 }
 

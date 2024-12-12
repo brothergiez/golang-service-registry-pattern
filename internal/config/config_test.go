@@ -8,10 +8,14 @@ import (
 func TestLoadConfig_WithEnvVariables(t *testing.T) {
 	os.Setenv("MONGO_URI", "mongodb://test-mongo:27017")
 	os.Setenv("SERVER_PORT", "3000")
+	os.Setenv("DATABASE_NAME", "service_registry")
+	os.Setenv("COLLECTION_NAME", "services")
 
 	defer func() {
 		os.Unsetenv("MONGO_URI")
 		os.Unsetenv("SERVER_PORT")
+		os.Unsetenv("DATABASE_NAME")
+		os.Unsetenv("COLLECTION_NAME")
 	}()
 
 	cfg := LoadConfig()
@@ -23,11 +27,21 @@ func TestLoadConfig_WithEnvVariables(t *testing.T) {
 	if cfg.ServerPort != "3000" {
 		t.Errorf("expected ServerPort to be '3000', got '%s'", cfg.ServerPort)
 	}
+
+	if cfg.DatabaseName != "service_registry" {
+		t.Errorf("expected DatabaseName to be 'service_registry', got '%s'", cfg.DatabaseName)
+	}
+
+	if cfg.CollectionName != "services" {
+		t.Errorf("expected CollectionName to be 'services', got '%s'", cfg.CollectionName)
+	}
 }
 
 func TestLoadConfig_WithoutEnvVariables(t *testing.T) {
 	os.Unsetenv("MONGO_URI")
 	os.Unsetenv("SERVER_PORT")
+	os.Unsetenv("DATABASE_NAME")
+	os.Unsetenv("COLLECTION_NAME")
 
 	cfg := LoadConfig()
 
@@ -37,6 +51,14 @@ func TestLoadConfig_WithoutEnvVariables(t *testing.T) {
 
 	if cfg.ServerPort != "3000" {
 		t.Errorf("expected ServerPort to be '3000', got '%s'", cfg.ServerPort)
+	}
+
+	if cfg.DatabaseName != "service_registry" {
+		t.Errorf("expected DatabaseName to be 'service_registry', got '%s'", cfg.DatabaseName)
+	}
+
+	if cfg.CollectionName != "services" {
+		t.Errorf("expected CollectionName to be 'services', got '%s'", cfg.CollectionName)
 	}
 }
 

@@ -8,8 +8,10 @@ import (
 )
 
 type Config struct {
-	MongoURI   string
-	ServerPort string
+	MongoURI       string
+	ServerPort     string
+	DatabaseName   string
+	CollectionName string
 }
 
 func LoadConfig() *Config {
@@ -18,8 +20,10 @@ func LoadConfig() *Config {
 	}
 
 	return &Config{
-		MongoURI:   getEnv("MONGO_URI", "mongodb://localhost:27017"),
-		ServerPort: getEnv("SERVER_PORT", "3000"),
+		MongoURI:       getEnv("MONGO_URI", "mongodb://localhost:27017"),
+		ServerPort:     getEnv("SERVER_PORT", "3000"),
+		DatabaseName:   getEnv("DATABASE_NAME", "service_registry"),
+		CollectionName: getEnv("COLLECTION_NAME", "services"),
 	}
 }
 

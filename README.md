@@ -58,7 +58,7 @@ Follow these steps to set up and run the Service Registry project:
 1. **Clone the Repository**
    Clone the project from GitHub:
    ```bash
-   git clone https://github.com/username/service-registry.git
+   git clone https://github.com/brothergiez/golang-service-registry-pattern.git
    cd service-registry
    ```
 

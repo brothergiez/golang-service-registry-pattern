@@ -43,7 +43,7 @@ Create a `.env` file in the root directory to store application configuration:
 
 ```env
 MONGO_URI=mongodb://localhost:27017
-SERVER_PORT=8080
+SERVER_PORT=3000
 DATABASE_NAME=service_registry
 COLLECTION_NAME=services
 ```
@@ -102,7 +102,7 @@ The body should be a JSON object with the following fields:
     "id": "64a1e6d2f6c2b93e4d64f0a5",
     "name": "example-service",
     "address": "127.0.0.1",
-    "port": 8080,
+    "port": 3000,
     "registered_at": "2024-12-12T10:00:00Z"
   }
 ]

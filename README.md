@@ -27,7 +27,9 @@ service-registry/
 │       └── main.go
 ├── internal/
 │   ├── config/           # Application configuration module
+│   │   ├── config.go     # Configuration 
 │   ├── database/         # MongoDB connection module 
+│   │   ├── database.go   # Database connection
 │   ├── registry/         # Core Service Registry module
 │   │   ├── handler.go    # HTTP Handlers
 │   │   ├── model.go      # Data structures for services

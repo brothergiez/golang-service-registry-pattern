@@ -87,15 +87,15 @@ Follow these steps to set up and run the Service Registry project:
     The body should be a JSON object with the following fields:
     ```json
     {
-    "name": "example-service",
-    "address": "127.0.0.1",
-    "port": 3000
+        "name": "example-service",
+        "address": "127.0.0.1",
+        "port": 3000
     }
     ```
 - **Response (201 Created)**
     ```json
     {
-    "message": "Service registered successfully"
+        "message": "Service registered successfully"
     }
     ```
 
@@ -106,13 +106,13 @@ Follow these steps to set up and run the Service Registry project:
 - **Response (200 OK)**
     ```json
     [
-    {
-        "id": "64a1e6d2f6c2b93e4d64f0a5",
-        "name": "example-service",
-        "address": "127.0.0.1",
-        "port": 3000,
-        "registered_at": "2024-12-12T10:00:00Z"
-    }
+        {
+            "id": "64a1e6d2f6c2b93e4d64f0a5",
+            "name": "example-service",
+            "address": "127.0.0.1",
+            "port": 3000,
+            "registered_at": "2024-12-12T10:00:00Z"
+        }
     ]
     ```
 
@@ -123,7 +123,7 @@ Follow these steps to set up and run the Service Registry project:
 - **Response (200 OK)**
     ```json
     {
-    "message": "Service deregistered successfully"
+        "message": "Service deregistered successfully"
     }
 
     ```
@@ -135,18 +135,18 @@ Follow these steps to set up and run the Service Registry project:
 - **Response (200 OK)**
     ```json
     {
-    "status": "healthy",
-    "database": "connected",
-    "server_time": "2024-12-12T14:00:00Z"
+        "status": "healthy",
+        "database": "connected",
+        "server_time": "2024-12-12T14:00:00Z"
     }
 
     ```
 - **Response (503 Service Unavailable)**
     ```json
     {
-    "status": "unhealthy",
-    "database": "disconnected",
-    "server_time": "2024-12-12T14:00:00Z"
+        "status": "unhealthy",
+        "database": "disconnected",
+        "server_time": "2024-12-12T14:00:00Z"
     }
 
     ```
